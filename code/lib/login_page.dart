@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'second_page.dart';
-import 'sign_up_page.dart';  // Import your SignUpPage
-import 'forgot_password_page.dart';  // Import your ForgotPasswordPage
+import 'sign_up_page.dart';  
+import 'forgot_password_page.dart';  
 
 class LoginPage extends StatefulWidget {
   @override
