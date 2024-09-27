@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'second_page.dart';
+import 'LandingPage.dart';
 import 'sign_up_page.dart';  
-import 'forgot_password_page.dart';  
+import 'forgot_password_page.dart'; 
 
 class LoginPage extends StatefulWidget {
   @override
@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
         _passwordController.text.isNotEmpty) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => SecondPage()),
+        MaterialPageRoute(builder: (context) => LandingPage()),
       );
     } else {
       _showErrorDialog();
