@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:battery_plus/battery_plus.dart';
-import 'package:audioplayers/audioplayers.dart'; 
-import 'package:firebase_auth/firebase_auth.dart'; 
+import 'package:audioplayers/audioplayers.dart';
+import 'navigation_menu.dart';
 
 class PhoneMonitoringPage extends StatefulWidget {
   @override
@@ -13,22 +13,11 @@ class _PhoneMonitoringPageState extends State<PhoneMonitoringPage> {
   final AudioPlayer _audioPlayer = AudioPlayer();  
   int _batteryLevel = 100;
   bool _playedWarning = false;
-  bool _isAdmin = false;  
 
   @override
   void initState() {
     super.initState();
-    _checkIfAdmin();
     _getBatteryLevel();
-  }
-
-  void _checkIfAdmin() {
-    User? user = FirebaseAuth.instance.currentUser;  
-    if (user != null && user.email == 'admin@example.com') {
-      setState(() {
-        _isAdmin = true;  
-      });
-    }
   }
 
   Future<void> _getBatteryLevel() async {
@@ -44,8 +33,8 @@ class _PhoneMonitoringPageState extends State<PhoneMonitoringPage> {
   }
 
   Future<void> _playWarningSound() async {
-    await _audioPlayer.setSourceAsset('sounds/battery_warning.mp3'); 
-    await _audioPlayer.resume(); 
+    await _audioPlayer.setSourceAsset('sounds/battery_warning.mp3');  
+    await _audioPlayer.resume();  
   }
 
   @override
@@ -59,6 +48,9 @@ class _PhoneMonitoringPageState extends State<PhoneMonitoringPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Phone Monitoring'),
+        actions: const [
+          NavigationMenu(),  
+        ],
       ),
       body: Center(
         child: Column(
@@ -73,11 +65,10 @@ class _PhoneMonitoringPageState extends State<PhoneMonitoringPage> {
                 'Warning: Battery is low!',
                 style: TextStyle(color: Colors.red, fontSize: 18),
               ),
-            if (_isAdmin)
-              ElevatedButton(
-                onPressed: _playWarningSound,
-                child: const Text('Test Warning Sound'),
-              ),
+            ElevatedButton(
+              onPressed: _playWarningSound,
+              child: const Text('Test Warning Sound'),
+            ),
           ],
         ),
       ),

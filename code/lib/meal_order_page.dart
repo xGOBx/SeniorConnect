@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'navigation_menu.dart';  
 
 class MealOrderPage extends StatelessWidget {
+  const MealOrderPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Order Meal'),
+        actions: const [
+          NavigationMenu(), 
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
