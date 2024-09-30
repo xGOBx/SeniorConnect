@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'LandingPage.dart';
-import 'sign_up_page.dart';  
-import 'forgot_password_page.dart'; 
+import 'sign_up_page.dart';
+import 'forgot_password_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,24 +13,43 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _login() {
-    if (_usernameController.text.isNotEmpty &&
-        _passwordController.text.isNotEmpty) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => LandingPage()),
-      );
-    } else {
-      _showErrorDialog();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  void _login() async {
+    try {
+      if (_usernameController.text.isNotEmpty &&
+          _passwordController.text.isNotEmpty) {
+        UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: _usernameController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LandingPage()),
+        );
+      } else {
+        _showErrorDialog('Please enter both username and password.');
+      }
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      if (e.code == 'user-not-found') {
+        errorMessage = 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        errorMessage = 'Wrong password provided.';
+      } else {
+        errorMessage = 'Login failed. Please try again.';
+      }
+      _showErrorDialog(errorMessage);
     }
   }
 
-  void _showErrorDialog() {
+  void _showErrorDialog(String message) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Error'),
-        content: const Text('Please enter both username and password.'),
+        content: Text(message),
         actions: [
           TextButton(
             onPressed: () {
@@ -89,7 +109,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
             TextButton(
               onPressed: () {
-                // Navigate to SignUpPage
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => SignUpPage()),
@@ -99,7 +118,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
             TextButton(
               onPressed: () {
-                // Navigate to ForgotPasswordPage
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ForgotPasswordPage()),

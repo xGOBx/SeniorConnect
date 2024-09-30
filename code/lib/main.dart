@@ -1,8 +1,9 @@
-
 import 'package:flutter/material.dart';
-import 'login_page.dart';
-
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'auth_gate.dart';  
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -12,12 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '917592768_a1_f24',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: const AuthGate(), 
     );
   }
 }

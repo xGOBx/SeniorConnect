@@ -1,4 +1,4 @@
-package com.example.u_917592768_a1_f24
+package com.SeniorConnect.app
 
 import io.flutter.embedding.android.FlutterActivity
 
