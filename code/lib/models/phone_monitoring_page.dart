@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:battery_plus/battery_plus.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'navigation_menu.dart';
-import 'package:_917592768_a1_f24/models/Page%20Styles/styles.dart';
+import 'package:project1_mobdev_gaven_pearl_917592768/models/page_styles/styles.dart';
 
 class PhoneMonitoringPage extends StatefulWidget {
   const PhoneMonitoringPage({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'navigation_menu.dart';
-import 'package:_917592768_a1_f24/models/Page%20Styles/styles.dart';
+import 'package:project1_mobdev_gaven_pearl_917592768/models/page_styles/styles.dart';
 
 class MealOrderPage extends StatefulWidget {
   const MealOrderPage({super.key});

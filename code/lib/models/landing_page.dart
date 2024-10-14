@@ -1,6 +1,8 @@
-import 'package:_917592768_a1_f24/models/Page%20Styles/custom_widgets.dart';
-import 'package:_917592768_a1_f24/utils/auth_gate.dart';
+
 import 'package:flutter/material.dart';
+import 'package:project1_mobdev_gaven_pearl_917592768/models/page_styles/custom_widgets.dart';
+import 'package:project1_mobdev_gaven_pearl_917592768/models/page_styles/styles.dart';
+import 'package:project1_mobdev_gaven_pearl_917592768/utils/auth_gate.dart';
 import 'meal_order_page.dart';
 import 'emergency_help_page.dart';
 import 'near_me_page.dart';
@@ -9,7 +11,6 @@ import 'calendar_page.dart';
 import 'picture_page.dart';
 import 'seeking_help_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:_917592768_a1_f24/models/Page%20Styles/styles.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
