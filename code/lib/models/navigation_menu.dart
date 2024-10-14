@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:battery_plus/battery_plus.dart'; 
+import 'package:battery_plus/battery_plus.dart';
 import 'meal_order_page.dart';
 import 'emergency_help_page.dart';
 import 'near_me_page.dart';
 import 'phone_monitoring_page.dart';
 import 'calendar_page.dart';
 import 'picture_page.dart';
-import 'auth_gate.dart';
+import '../utils/auth_gate.dart';
+import 'landing_page.dart';
 
 class NavigationMenu extends StatefulWidget {
   const NavigationMenu({super.key});
@@ -17,13 +18,14 @@ class NavigationMenu extends StatefulWidget {
 }
 
 class _NavigationMenuState extends State<NavigationMenu> {
-  final Battery _battery = Battery(); 
-  int _batteryLevel = 100; 
+  final Battery _battery = Battery();
+  int _batteryLevel = 100;
+  bool isExpanded = false;
 
   @override
   void initState() {
     super.initState();
-    _getBatteryLevel(); 
+    _getBatteryLevel();
   }
 
   Future<void> _getBatteryLevel() async {
@@ -40,23 +42,26 @@ class _NavigationMenuState extends State<NavigationMenu> {
     return PopupMenuButton<String>(
       onSelected: (value) async {
         switch (value) {
+          case 'Home':
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const LandingPage()));
+            break;
           case 'Meal Order':
-            Navigator.push(context, MaterialPageRoute(builder: (context) => MealOrderPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const MealOrderPage()));
             break;
           case 'Emergency Help':
-            Navigator.push(context, MaterialPageRoute(builder: (context) => EmergencyHelpPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const EmergencyHelpPage()));
             break;
           case 'Near Me':
-            Navigator.push(context, MaterialPageRoute(builder: (context) => NearMePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const NearMePage()));
             break;
           case 'Phone Monitoring':
             Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneMonitoringPage()));
             break;
           case 'Calendar Events':
-            Navigator.push(context, MaterialPageRoute(builder: (context) => CalendarPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const CalendarPage()));
             break;
           case 'Take Picture':
-            Navigator.push(context, MaterialPageRoute(builder: (context) => PicturePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const PicturePage()));
             break;
           case 'Logout':
             await FirebaseAuth.instance.signOut();
@@ -65,11 +70,16 @@ class _NavigationMenuState extends State<NavigationMenu> {
               MaterialPageRoute(builder: (context) => const AuthGate()),
             );
             break;
+          case 'ToggleSize':
+            setState(() {
+              isExpanded = !isExpanded; 
+            });
+            break;
         }
       },
       itemBuilder: (context) => [
         PopupMenuItem(
-          enabled: false, 
+          enabled: false,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -81,33 +91,55 @@ class _NavigationMenuState extends State<NavigationMenu> {
             ],
           ),
         ),
-        const PopupMenuItem(
+        PopupMenuItem(
+          value: 'ToggleSize',
+          child: Text(isExpanded ? 'Make Menu Smaller' : 'Make Menu Bigger'), 
+        ),
+        PopupMenuItem(
+          value: 'Home',
+          child: _buildMenuItem('Home', Icons.home),
+        ),
+        PopupMenuItem(
           value: 'Meal Order',
-          child: Text('Meal Order'),
+          child: _buildMenuItem('Meal Order', Icons.restaurant),
         ),
-        const PopupMenuItem(
+        PopupMenuItem(
           value: 'Emergency Help',
-          child: Text('Emergency Help'),
+          child: _buildMenuItem('Emergency Help', Icons.local_hospital),
         ),
-        const PopupMenuItem(
+        PopupMenuItem(
           value: 'Near Me',
-          child: Text('Near Me'),
+          child: _buildMenuItem('Near Me', Icons.place),
         ),
-        const PopupMenuItem(
+        PopupMenuItem(
           value: 'Phone Monitoring',
-          child: Text('Phone Monitoring'),
+          child: _buildMenuItem('Phone Monitoring', Icons.battery_full),
         ),
-        const PopupMenuItem(
+        PopupMenuItem(
           value: 'Calendar Events',
-          child: Text('Calendar Events'),
+          child: _buildMenuItem('Calendar Events', Icons.calendar_today),
         ),
-        const PopupMenuItem(
+        PopupMenuItem(
           value: 'Take Picture',
-          child: Text('Take Picture'),
+          child: _buildMenuItem('Take Picture', Icons.camera_alt),
         ),
         const PopupMenuItem(
           value: 'Logout',
           child: Text('Logout', style: TextStyle(color: Colors.red)),
+        ),
+      ],
+      child: Icon(Icons.menu, size: isExpanded ? 40 : 24), 
+    );
+  }
+
+  Widget _buildMenuItem(String label, IconData icon) {
+    return Row(
+      children: [
+        Icon(icon, size: isExpanded ? 30 : 20), 
+        const SizedBox(width: 10),
+        Text(
+          label,
+          style: TextStyle(fontSize: isExpanded ? 18 : 14), 
         ),
       ],
     );
