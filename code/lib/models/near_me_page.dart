@@ -7,6 +7,7 @@ class NearMePage extends StatefulWidget {
   const NearMePage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _NearMePageState createState() => _NearMePageState();
 }
 

@@ -6,6 +6,7 @@ class MealOrderPage extends StatefulWidget {
   const MealOrderPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _MealOrderPageState createState() => _MealOrderPageState();
 }
 

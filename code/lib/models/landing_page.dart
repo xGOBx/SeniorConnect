@@ -108,7 +108,7 @@ class LandingPage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => PhoneMonitoringPage()),
+                        MaterialPageRoute(builder: (context) => const PhoneMonitoringPage()),
                       );
                     },
                     color: AppStyles.batteryButtonColor,

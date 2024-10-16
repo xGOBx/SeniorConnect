@@ -14,6 +14,7 @@ class NavigationMenu extends StatefulWidget {
   const NavigationMenu({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _NavigationMenuState createState() => _NavigationMenuState();
 }
 
@@ -55,7 +56,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
             Navigator.push(context, MaterialPageRoute(builder: (context) => const NearMePage()));
             break;
           case 'Phone Monitoring':
-            Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneMonitoringPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const PhoneMonitoringPage()));
             break;
           case 'Calendar Events':
             Navigator.push(context, MaterialPageRoute(builder: (context) => const CalendarPage()));

@@ -25,7 +25,7 @@ class _CalendarPageState extends State<CalendarPage> {
   }
 
   void _showEventDialog(bool isDaily) {
-    TextEditingController _eventController = TextEditingController();
+    TextEditingController eventController = TextEditingController();
 
     showDialog(
       context: context,
@@ -33,7 +33,7 @@ class _CalendarPageState extends State<CalendarPage> {
         return AlertDialog(
           title: Text(isDaily ? 'Create Daily Event' : 'Create One-Time Event'),
           content: TextField(
-            controller: _eventController,
+            controller: eventController,
             decoration: const InputDecoration(hintText: 'Enter event name'),
           ),
           actions: [
@@ -45,14 +45,14 @@ class _CalendarPageState extends State<CalendarPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                if (_eventController.text.isNotEmpty) {
+                if (eventController.text.isNotEmpty) {
                   if (isDaily) {
                     for (int i = 0; i < 30; i++) {
-                      _addEvent(_eventController.text);
+                      _addEvent(eventController.text);
                       _selectedDay = _selectedDay.add(const Duration(days: 1));
                     }
                   } else {
-                    _addEvent(_eventController.text); 
+                    _addEvent(eventController.text); 
                   }
                   Navigator.of(context).pop();
                 }
